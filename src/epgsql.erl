@@ -96,7 +96,9 @@ connect(C, Host, Username, Password, Opts) ->
                          {connect, Host, Username, Password, Opts},
                          infinity) of
         connected ->
-            update_type_cache(C),
+            %% Redshift doesn't have "typearray" column in pg_type and doesn't 
+            %% support hstore and geometry types
+            %% update_type_cache(C),
             {ok, C};
         Error = {error, _} ->
             Error
